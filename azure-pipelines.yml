@@ -9,15 +9,28 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+# BURASI EKLENDİ: Değişken tanımı tam olarak bu hizada olmalı
+variables:
+  buildConfiguration: 'Release'
+
 steps:
 
+# .NET 10 SDK Kurulumu
 - task: UseDotNet@2
   displayName: 'Install .NET 10 SDK'
   inputs:
     version: '10.x'
     includePreviewVersions: true
 
+# Proje Derleme (Build) Adımı
+- task: DotNetCoreCLI@2
+  displayName: 'Build Project'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 
+# Yayınlama ve Paketleme (Publish)
 - task: DotNetCoreCLI@2
   displayName: 'Build and Publish Project'
   inputs:
@@ -27,7 +40,7 @@ steps:
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: true
 
-
+# Azure App Service'e Dağıtım (Deploy)
 - task: AzureRmWebAppDeployment@4
   displayName: 'Deploy to Azure App Service'
   inputs:
