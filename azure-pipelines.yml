@@ -41,13 +41,15 @@ steps:
     zipAfterPublish: true
 
 # Azure App Service'e Dağıtım (Deploy)
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Deploy to Azure App Service'
+
+- task: AzureRmWebAppDeployment@5
   inputs:
     ConnectionType: 'AzureRM'
-    azureSubscription: 'MyAzureConn'        
+    azureSubscription: 'MyAzureConn'
     appType: 'webAppLinux'
-    WebAppName: 'BasicWeb'                  
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+    WebAppName: 'BasicWeb'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    RuntimeStack: 'DOTNETCORE|10.0'
+    DeploymentTypeLinux: 'oneDeploy'
 
 
