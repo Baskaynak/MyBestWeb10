@@ -9,47 +9,54 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-# BURASI EKLENDİ: Değişken tanımı tam olarak bu hizada olmalı
 variables:
   buildConfiguration: 'Release'
 
 steps:
 
-# .NET 10 SDK Kurulumu
 - task: UseDotNet@2
   displayName: 'Install .NET 10 SDK'
   inputs:
+    packageType: 'sdk'
     version: '10.x'
     includePreviewVersions: true
 
-# Proje Derleme (Build) Adımı
 - task: DotNetCoreCLI@2
-  displayName: 'Build Project'
+  displayName: 'Restore'
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build'
   inputs:
     command: 'build'
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
-# Yayınlama ve Paketleme (Publish)
 - task: DotNetCoreCLI@2
-  displayName: 'Build and Publish Project'
+  displayName: 'Publish'
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: '**/MyBestWeb10.csproj' 
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: true
+    projects: '**/MyBestWeb10.csproj'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/publish'
+    zipAfterPublish: false
 
-# Azure App Service'e Dağıtım (Deploy)
+- task: ArchiveFiles@2
+  displayName: 'Create ZIP Package'
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/publish'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
+    replaceExistingArchive: true
 
-- task: AzureRmWebAppDeployment@5
+- task: AzureRmWebAppDeployment@4
+  displayName: 'Deploy to Azure App Service'
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'MyAzureConn'
     appType: 'webAppLinux'
     WebAppName: 'BasicWeb'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    RuntimeStack: 'DOTNETCORE|10.0'
-    DeploymentTypeLinux: 'oneDeploy'
-
-
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/app.zip'
