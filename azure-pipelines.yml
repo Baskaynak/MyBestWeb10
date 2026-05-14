@@ -54,7 +54,7 @@ steps:
 - task: ArchiveFiles@2
   displayName: 'Create ZIP'
   inputs:
-    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/publish'
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/publish/MyBestWeb10'
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
