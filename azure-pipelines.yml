@@ -47,13 +47,11 @@ steps:
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: true
 
-# 5. Azure Deployment (Tek ve Net Yol)
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Deploy to Azure'
+- task: AzureRmWebAppDeployment@5
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'MyAzureConn'
     appType: 'webAppLinux'
     WebAppName: 'BasicWeb'
-    # Doğrudan spesifik zip dosyasına odaklanıyoruz:
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/MyBestWeb10.zip'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    DeploymentTypeLinux: 'zipDeploy'
