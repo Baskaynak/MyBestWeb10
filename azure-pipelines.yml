@@ -37,7 +37,7 @@ steps:
     projects: 'MyBestWeb10/MyBestWeb10.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
-# 4. Publish (Çalışan projedeki gibi zipAfterPublish: true kullanıyoruz)
+# 4. Publish (Otomatik olarak zip oluşturur)
 - task: DotNetCoreCLI@2
   displayName: 'Publish'
   inputs:
@@ -45,14 +45,26 @@ steps:
     publishWebProjects: false
     projects: 'MyBestWeb10/MyBestWeb10.csproj'
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: true
+    zipAfterPublish: true # Bu satır çok önemli, kendi zipsinini kendi yapar
 
-# 5. Artifact Olarak Yükleme (Yayın aldığın projedeki adım)
-- task: PublishBuildArtifacts@1
-  displayName: 'Upload Artifact'
+# 5. Azure Deployment (Paketi ararken daha geniş kapsamlı arıyoruz)
+- task: AzureRmWebAppDeployment@4
+  displayName: 'Deploy to Azure'
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'MyAzureConn'
+    appType: 'webAppLinux'
+    WebAppName: 'BasicWeb'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+- task: AzureRmWebAppDeployment@5
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'MyAzureConn'
+    appType: 'webAppLinux'
+    WebAppName: 'BasicWeb'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    RuntimeStack: 'DOTNETCORE|10.0'
+    DeploymentTypeLinux: 'zipDeploy'
 
 # 6. Azure Deployment (v5 versiyonu ve zipDeploy tipiyle)
 - task: AzureRmWebAppDeployment@4
