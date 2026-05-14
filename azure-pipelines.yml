@@ -45,6 +45,11 @@ steps:
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/publish'
     zipAfterPublish: false
 
+- script: |
+    echo "=== PUBLISH FOLDER ==="
+    ls -R $(Build.ArtifactStagingDirectory)/publish
+  displayName: 'Debug Publish Output'
+
 
 - task: ArchiveFiles@2
   displayName: 'Create ZIP'
