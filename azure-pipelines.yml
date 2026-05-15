@@ -30,7 +30,7 @@ steps:
   displayName: 'Restore'
   inputs:
     command: 'restore'
-    projects: 'MyBestWeb/MyBestWeb10.csproj'
+    projects: 'MyBestWeb/MyBestWeb/MyBestWeb10.csproj'
 
 
 - task: DotNetCoreCLI@2
