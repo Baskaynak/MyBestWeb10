@@ -68,5 +68,5 @@ steps:
     azureSubscription: 'MyAzureConn'
     appType: 'webAppLinux'
     WebAppName: 'mybestweb10-clean'
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/app.zip'
+    packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
     DeploymentTypeLinux: 'zipDeploy'
