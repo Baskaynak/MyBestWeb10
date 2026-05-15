@@ -30,14 +30,14 @@ steps:
   displayName: 'Restore'
   inputs:
     command: 'restore'
-    projects: 'MyBestWeb/MyBestWeb/MyBestWeb10.csproj'
+    projects: 'MyBestWeb10/MyBestWeb10.csproj'
 
 
 - task: DotNetCoreCLI@2
   displayName: 'Build'
   inputs:
     command: 'build'
-    projects: 'MyBestWeb/MyBestWeb10.csproj'
+    projects: 'MyBestWeb10/MyBestWeb10.csproj'
     arguments: '--configuration $(buildConfiguration) --no-restore'
 
 
@@ -45,8 +45,8 @@ steps:
   displayName: 'Publish'
   inputs:
     command: 'publish'
-    publishWebProjects: false
-    projects: 'MyBestWeb/MyBestWeb10.csproj'
+    publishWebProjects: true
+    projects: 'MyBestWeb10/MyBestWeb10.csproj'
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/publish_output'
     zipAfterPublish: false
 
