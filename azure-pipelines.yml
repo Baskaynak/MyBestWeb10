@@ -3,6 +3,8 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+# Starter pipeline
+
 trigger:
 - main
 - feature/nazar-boncugu-v2
@@ -14,7 +16,8 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-# 1. .NET 10 SDK Kurulumu
+
+# 1. Install .NET 10 SDK
 - task: UseDotNet@2
   displayName: 'Install .NET 10 SDK (Preview)'
   inputs:
@@ -35,23 +38,35 @@ steps:
   inputs:
     command: 'build'
     projects: 'MyBestWeb10/MyBestWeb10.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
 
-# 4. Publish (Otomatik olarak MyBestWeb10.zip oluşturur)
+# 4. Publish
 - task: DotNetCoreCLI@2
   displayName: 'Publish'
   inputs:
     command: 'publish'
     publishWebProjects: false
     projects: 'MyBestWeb10/MyBestWeb10.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: true
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/publish'
+    zipAfterPublish: false
 
+# 5. Create ZIP
+- task: ArchiveFiles@2
+  displayName: 'Create ZIP Package'
+  inputs:
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/publish'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
+    replaceExistingArchive: true
+
+# 6. Deploy to NEW CLEAN App Service
 - task: AzureRmWebAppDeployment@5
+  displayName: 'Deploy to mybestweb10-clean'
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'MyAzureConn'
     appType: 'webAppLinux'
-    WebAppName: 'BasicWeb'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    WebAppName: 'mybestweb10-clean'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/app.zip'
     DeploymentTypeLinux: 'zipDeploy'
