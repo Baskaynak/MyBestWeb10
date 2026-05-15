@@ -60,11 +60,13 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
     replaceExistingArchive: true
 
+
 - task: AzureRmWebAppDeployment@5
+  displayName: 'Deploy to mybestweb10-clean'
   inputs:
     ConnectionType: 'AzureRM'
+    azureSubscription: 'MyAzureConn'
     appType: 'webAppLinux'
     WebAppName: 'mybestweb10-clean'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    RuntimeStack: 'DOTNETCORE|10.0'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/app.zip'
     DeploymentTypeLinux: 'zipDeploy'
