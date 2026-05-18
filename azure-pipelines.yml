@@ -45,19 +45,18 @@ steps:
   displayName: 'Publish'
   inputs:
     command: 'publish'
-    publishWebProjects: true
-    projects: 'MyBestWeb10/MyBestWeb10.csproj'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/publish_output'
-    zipAfterPublish: false
+    publishWebProjects: false
+    projects: '**/MyBestWeb10.csproj'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: true
 
 
 - task: ArchiveFiles@2
-  displayName: 'Create ZIP Package'
   inputs:
-    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/publish_output'
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)' 
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/app.zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
 
 
