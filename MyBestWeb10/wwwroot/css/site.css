@@ -29,3 +29,25 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+nazar-boncugu {
+    display: inline-block;
+    font-size: 1.5rem; /* Boyutu buradan ayarlayabilirsin */
+    margin-left: 8px;   /* Yazıyla arasına biraz boşluk */
+    animation: parlaDon 3s infinite ease-in-out;
+    vertical-align: middle; /* Yazıyla aynı hizada durması için */
+}
+
+@keyframes parlaDon {
+    0% { 
+        transform: rotate(0deg) scale(1); 
+        filter: drop-shadow(0 0 2px rgba(0, 0, 255, 0.5)); 
+    }
+    50% { 
+        transform: rotate(180deg) scale(1.3); 
+        filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.8)); 
+    }
+    100% { 
+        transform: rotate(360deg) scale(1); 
+        filter: drop-shadow(0 0 2px rgba(0, 0, 255, 0.5)); 
+    }
+}

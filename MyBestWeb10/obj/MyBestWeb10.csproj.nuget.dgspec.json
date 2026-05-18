@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\SU\\Desktop\\mybestweb10\\MyBestWeb10\\MyBestWeb10.csproj": {}
+    "C:\\Users\\SU\\Desktop\\mybestweb10\\MyBestWeb10\\MyBestWeb10.csproj": {}
   },
   "projects": {
-    "c:\\Users\\SU\\Desktop\\mybestweb10\\MyBestWeb10\\MyBestWeb10.csproj": {
+    "C:\\Users\\SU\\Desktop\\mybestweb10\\MyBestWeb10\\MyBestWeb10.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\SU\\Desktop\\mybestweb10\\MyBestWeb10\\MyBestWeb10.csproj",
+        "projectUniqueName": "C:\\Users\\SU\\Desktop\\mybestweb10\\MyBestWeb10\\MyBestWeb10.csproj",
         "projectName": "MyBestWeb10",
-        "projectPath": "c:\\Users\\SU\\Desktop\\mybestweb10\\MyBestWeb10\\MyBestWeb10.csproj",
+        "projectPath": "C:\\Users\\SU\\Desktop\\mybestweb10\\MyBestWeb10\\MyBestWeb10.csproj",
         "packagesPath": "C:\\Users\\SU\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\SU\\Desktop\\mybestweb10\\MyBestWeb10\\obj\\",
+        "outputPath": "C:\\Users\\SU\\Desktop\\mybestweb10\\MyBestWeb10\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

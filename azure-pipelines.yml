@@ -48,7 +48,7 @@ steps:
     publishWebProjects: false
     projects: '**/MyBestWeb10.csproj'
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: false
+    zipAfterPublish: true
 
 
 - task: ArchiveFiles@2
