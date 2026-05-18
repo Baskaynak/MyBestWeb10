@@ -29,7 +29,7 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
-nazar-boncugu {
+.nazar-boncugu {
     display: inline-block;
     font-size: 1.5rem; /* Boyutu buradan ayarlayabilirsin */
     margin-left: 8px;   /* Yazıyla arasına biraz boşluk */
