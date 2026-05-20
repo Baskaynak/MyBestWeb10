@@ -8,6 +8,31 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MyBestWeb10.styles.css" asp-append-version="true" />
+
+    <style>
+        .nazar-boncugu {
+            display: inline-block !important;
+            font-size: 1.5rem;
+            margin-left: 8px;
+            animation: parlaDon 3s infinite ease-in-out !important;
+            vertical-align: middle;
+        }
+
+        @keyframes parlaDon {
+            0% { 
+                transform: rotate(0deg) scale(1); 
+                filter: drop-shadow(0 0 2px rgba(0, 0, 255, 0.5)); 
+            }
+            50% { 
+                transform: rotate(180deg) scale(1.3); 
+                filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.8)); 
+            }
+            100% { 
+                transform: rotate(360deg) scale(1); 
+                filter: drop-shadow(0 0 2px rgba(0, 0, 255, 0.5)); 
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -19,34 +44,17 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                   <ul class="navbar-nav flex-grow-1">
-    <li class="nav-item">
-        <a class="nav-link text-dark"
-           asp-area=""
-           asp-controller="Home"
-           asp-action="Index">
-           Home
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link text-dark"
-           asp-area=""
-           asp-controller="Home"
-           asp-action="Privacy">
-           Privacy
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link text-dark"
-           asp-area=""
-           asp-controller="Home"
-           asp-action="Hakkimda">
-           Hakkimda
-        </a>
-    </li>
-</ul>
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Hakkimda">Hakkimda</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
