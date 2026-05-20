@@ -9,15 +9,26 @@
 <p>Su an saat: @DateTime.Now</p>
 
 <div style="text-align: center; margin-top: 20px;">
-    <span class="nazar-boncugu-buyuk">🧿</span>
+    <div class="nazar-kutusu">
+        <span class="nazar-boncugu-buyuk">🧿</span>
+    </div>
     <p style="font-size: 16px; margin-top: 10px;">Masallah!</p>
 </div>
 
 <style>
+    /* Dış kutuyu bir grafik alanı haline getiriyoruz */
+    .nazar-kutusu {
+        display: inline-block;
+        perspective: 1000px;
+        transform-style: preserve-3d;
+    }
+
     .nazar-boncugu-buyuk {
-        display: inline-block !important;
+        display: block !important; /* inline-block yerine block yaparak harf kimliğinden çıkardık */
         font-size: 80px;
-        animation: parlaDonHakkimda 3s infinite ease-in-out !important;
+        line-height: 1;
+        animation: parlaDonHakkimda 3s infinite linear !important; /* ease-in-out yerine daha akıcı linear yaptık */
+        transform-origin: center center;
     }
 
     @@keyframes parlaDonHakkimda {
@@ -26,7 +37,7 @@
             filter: drop-shadow(0 0 5px rgba(0, 0, 255, 0.5)); 
         }
         50% { 
-            transform: rotate(180deg) scale(1.15); 
+            transform: rotate(180deg) scale(1.1); 
             filter: drop-shadow(0 0 25px rgba(0, 255, 255, 0.8)); 
         }
         100% { 
