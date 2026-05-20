@@ -9,10 +9,10 @@
 <p>Su an saat: @DateTime.Now</p>
 
 <div style="text-align: center; margin-top: 30px;">
-    <div class="css-nazar-boncugu">
-        <div class="acik-mavi">
-            <div class="beyaz">
-                <div class="siyah"></div>
+    <div class="css-nazar-boncugu-v2">
+        <div class="acik-mavi-v2">
+            <div class="beyaz-v2">
+                <div class="siyah-v2"></div>
             </div>
         </div>
     </div>
@@ -21,7 +21,7 @@
 
 <style>
     /* Katman katman kusursuz bir nazar boncuğu çiziyoruz */
-    .css-nazar-boncugu {
+    .css-nazar-boncugu-v2 {
         width: 80px;
         height: 80px;
         background-color: #002fa7; /* Koyu lacivert dış çeper */
@@ -29,10 +29,10 @@
         display: inline-block;
         position: relative;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        animation: firilFirilDon 4s infinite linear !important; /* Dönüş animasyonu */
+        animation: firilFirilDonYeni 4s infinite linear !important; /* Dönüş animasyonu */
     }
 
-    .acik-mavi {
+    .acik-mavi-v2 {
         width: 54px;
         height: 54px;
         background-color: #87ceeb;
@@ -42,7 +42,7 @@
         left: 13px;
     }
 
-    .beyaz {
+    .beyaz-v2 {
         width: 30px;
         height: 30px;
         background-color: #ffffff;
@@ -52,7 +52,7 @@
         left: 12px;
     }
 
-    .siyah {
+    .siyah-v2 {
         width: 14px;
         height: 14px;
         background-color: #000000;
@@ -63,7 +63,7 @@
     }
 
     /* .NET derleyicisinin takılmaması için çift @@ işareti garantili kuralı */
-    @@keyframes firilFirilDon {
+    @@keyframes firilFirilDonYeni {
         0% {
             transform: rotate(0deg);
             filter: drop-shadow(0 0 2px rgba(0, 0, 255, 0.4));
