@@ -9,10 +9,10 @@
 <p>Su an saat: @DateTime.Now</p>
 
 <div style="text-align: center; margin-top: 30px;">
-    <div class="css-nazar-boncugu-v2">
-        <div class="acik-mavi-v2">
-            <div class="beyaz-v2">
-                <div class="siyah-v2"></div>
+    <div class="css-nazar-boncugu-hakkimda">
+        <div class="acik-mavi-h">
+            <div class="beyaz-h">
+                <div class="siyah-h"></div>
             </div>
         </div>
     </div>
@@ -20,19 +20,18 @@
 </div>
 
 <style>
-    /* Katman katman kusursuz bir nazar boncuğu çiziyoruz */
-    .css-nazar-boncugu-v2 {
+    .css-nazar-boncugu-hakkimda {
         width: 80px;
         height: 80px;
-        background-color: #002fa7; /* Koyu lacivert dış çeper */
+        background-color: #002fa7;
         border-radius: 50%;
         display: inline-block;
         position: relative;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        animation: firilFirilDonYeni 4s infinite linear !important; /* Dönüş animasyonu */
+        animation: buyukBoncukDon 4s infinite linear !important;
     }
 
-    .acik-mavi-v2 {
+    .acik-mavi-h {
         width: 54px;
         height: 54px;
         background-color: #87ceeb;
@@ -42,7 +41,7 @@
         left: 13px;
     }
 
-    .beyaz-v2 {
+    .beyaz-h {
         width: 30px;
         height: 30px;
         background-color: #ffffff;
@@ -52,7 +51,7 @@
         left: 12px;
     }
 
-    .siyah-v2 {
+    .siyah-h {
         width: 14px;
         height: 14px;
         background-color: #000000;
@@ -62,18 +61,8 @@
         left: 8px;
     }
 
-    /* .NET derleyicisinin takılmaması için çift @@ işareti garantili kuralı */
-    @@keyframes firilFirilDonYeni {
-        0% {
-            transform: rotate(0deg);
-            filter: drop-shadow(0 0 2px rgba(0, 0, 255, 0.4));
-        }
-        50% {
-            filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.7));
-        }
-        100% {
-            transform: rotate(360deg);
-            filter: drop-shadow(0 0 2px rgba(0, 0, 255, 0.4));
-        }
+    @@keyframes buyukBoncukDon {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 </style>
