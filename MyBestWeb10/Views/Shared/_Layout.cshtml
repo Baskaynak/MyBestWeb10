@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="~/MyBestWeb10.styles.css" asp-append-version="true" />
 
     <style>
+        /* 1. Navbar'daki minik yazı boncuğu için CSS */
         .nazar-boncugu {
             display: inline-block !important;
             font-size: 1.5rem;
@@ -18,13 +19,20 @@
             vertical-align: middle;
         }
 
+        /* 2. Sayfanın ortasında duran o büyük boncuk görseli için CSS */
+        main img, .nazar-boncugu-buyuk {
+            display: inline-block !important;
+            animation: parlaDon 3s infinite ease-in-out !important;
+        }
+
+        /* .NET derleyicisinin C# kodu sanıp hata vermemesi için çift @@ kullanıldı */
         @@keyframes parlaDon {
             0% { 
                 transform: rotate(0deg) scale(1); 
                 filter: drop-shadow(0 0 2px rgba(0, 0, 255, 0.5)); 
             }
             50% { 
-                transform: rotate(180deg) scale(1.3); 
+                transform: rotate(180deg) scale(1.1); 
                 filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.8)); 
             }
             100% { 
