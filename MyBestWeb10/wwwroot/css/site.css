@@ -30,13 +30,54 @@ body {
   text-align: start;
 }
 
-/* --- NAZAR BONCUĞU ANİMASYON STİLLERİ --- */
+/* --- NAZAR BONCUĞU ANİMASYON VE ÇİZİM STİLLERİ --- */
 
-/* Hem logodaki resmi hem de senin o el emeği orta-boncuk div katmanını yakala */
-.navbar-brand img, .css-nazar-boncugu-hakkimda.orta-boncuk {
-    display: inline-block;
+/* 1. Hem logodaki resmi hem de senin o el emeği orta-boncuk div katmanını yakala ve döndür */
+.navbar-brand img, .orta-boncuk, .css-nazar-boncugu-hakkimda {
+    display: inline-block !important;
     animation: parlaDon 3s infinite ease-in-out !important;
     transform-origin: center !important; /* Tam ortadan kusursuz dönsün */
+}
+
+/* 2. `Hakkimda.cshtml` dosyasından buraya taşıdığımız büyük boncuğun ana gövde stili */
+.css-nazar-boncugu-hakkimda, .orta-boncuk {
+    width: 80px;
+    height: 80px;
+    background-color: #002fa7;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 3. İç içe geçen katmanların renk ve konumlandırma sihirleri */
+.acik-mavi-h {
+    width: 54px;
+    height: 54px;
+    background-color: #87ceeb;
+    border-radius: 50%;
+    position: absolute;
+    top: 13px;
+    left: 13px;
+}
+
+.beyaz-h {
+    width: 30px;
+    height: 30px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+}
+
+.siyah-h {
+    width: 14px;
+    height: 14px;
+    background-color: #000000;
+    border-radius: 50%;
+    position: absolute;
+    top: 8px;
+    left: 8px;
 }
 
 /* Senin yazdığın o efsane parlama ve dönme efektinin ana kalbi */
