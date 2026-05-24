@@ -7,7 +7,7 @@
 
 trigger:
 - main
-- feature/nazar-boncugu-v2
+
 
 pool:
   vmImage: 'ubuntu-latest'
