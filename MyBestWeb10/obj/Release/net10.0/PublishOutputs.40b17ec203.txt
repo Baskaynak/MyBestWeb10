@@ -1,0 +1,7 @@
+C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\bin\Release\net10.0\publish\MyBestWeb10.exe
+C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\bin\Release\net10.0\publish\appsettings.Development.json
+C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\bin\Release\net10.0\publish\appsettings.json
+C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\bin\Release\net10.0\publish\MyBestWeb10.dll
+C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\bin\Release\net10.0\publish\MyBestWeb10.deps.json
+C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\bin\Release\net10.0\publish\MyBestWeb10.runtimeconfig.json
+C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\bin\Release\net10.0\publish\MyBestWeb10.pdb

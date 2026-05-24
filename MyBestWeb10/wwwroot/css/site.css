@@ -29,14 +29,17 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
-.nazar-boncugu {
+
+/* --- NAZAR BONCUĞU ANİMASYON STİLLERİ --- */
+
+/* Hem logodaki resmi hem de senin o el emeği orta-boncuk div katmanını yakala */
+.navbar-brand img, .css-nazar-boncugu-hakkimda.orta-boncuk {
     display: inline-block;
-    font-size: 1.5rem; /* Boyutu buradan ayarlayabilirsin */
-    margin-left: 8px;   /* Yazıyla arasına biraz boşluk */
-    animation: parlaDon 3s infinite ease-in-out;
-    vertical-align: middle; /* Yazıyla aynı hizada durması için */
+    animation: parlaDon 3s infinite ease-in-out !important;
+    transform-origin: center !important; /* Tam ortadan kusursuz dönsün */
 }
 
+/* Senin yazdığın o efsane parlama ve dönme efektinin ana kalbi */
 @keyframes parlaDon {
     0% { 
         transform: rotate(0deg) scale(1); 
