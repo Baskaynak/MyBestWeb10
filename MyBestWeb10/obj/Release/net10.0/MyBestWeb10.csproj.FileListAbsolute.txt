@@ -95,4 +95,4 @@ C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\obj\Release\net10.0\refint\MyBestWeb
 C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\obj\Release\net10.0\MyBestWeb10.pdb
 C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\obj\Release\net10.0\MyBestWeb10.genruntimeconfig.cache
 C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\obj\Release\net10.0\ref\MyBestWeb10.dll
-C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\obj\Release\net10.0\compressed\undxobxw1e-{0}-29praenlqd-29praenlqd.gz
+C:\Users\SU\Desktop\mybestweb10\MyBestWeb10\obj\Release\net10.0\compressed\undxobxw1e-{0}-xi2aa0wmta-xi2aa0wmta.gz

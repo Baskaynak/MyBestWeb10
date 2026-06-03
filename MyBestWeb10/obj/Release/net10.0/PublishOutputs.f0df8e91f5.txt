@@ -1,0 +1,7 @@
+C:\Users\SU\Desktop\mybestweb10\dist\MyBestWeb10.exe
+C:\Users\SU\Desktop\mybestweb10\dist\appsettings.Development.json
+C:\Users\SU\Desktop\mybestweb10\dist\appsettings.json
+C:\Users\SU\Desktop\mybestweb10\dist\MyBestWeb10.dll
+C:\Users\SU\Desktop\mybestweb10\dist\MyBestWeb10.deps.json
+C:\Users\SU\Desktop\mybestweb10\dist\MyBestWeb10.runtimeconfig.json
+C:\Users\SU\Desktop\mybestweb10\dist\MyBestWeb10.pdb
