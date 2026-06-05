@@ -1,52 +1,55 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuWeb Dünyası</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page - MyBestWeb10</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
     <style>
-        body {
-            background-color: #f4f7f6;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+        .nazar-boncugu {
+            display: inline-block !important;
+            font-size: 1.5rem;
+            margin-left: 8px;
+            animation: navbarDon 3s infinite linear !important;
+            vertical-align: middle;
         }
-        .card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        h1 {
-            color: #2c3e50;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        .nazar {
-            font-size: 4rem;
-            display: inline-block;
-            animation: don 4s infinite linear;
-        }
-        p {
-            color: #7f8c8d;
-            font-size: 1.2rem;
-        }
-        @keyframes don {
+        @keyframes navbarDon {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="nazar">🧿</div>
-        <h1>SuWeb Dünyası Canlıda!</h1>
-        <p>O inatçı 404 canavarını resmen tarihe gömdük aşko! 🚀</p>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">MyBestWeb10 <span class="nazar-boncugu">🧿</span></a>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="hakkimda.html">Hakkimda</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="text-center mt-5">
+                <h1>DEPLOY TEST 999</h1>
+                <h1 class="display-4">SuWeb Dünyasina Hoş Geldiniz!</h1>
+                <p>Web uygulamaları dünyasında fırtınalar estirmeye hazır mıyız? 🚀</p>
+            </div>
+        </main>
     </div>
+    <footer class="border-top footer text-muted text-center mt-5 pt-3">
+        <div class="container">
+            &copy; 2026 - MyBestWeb10
+        </div>
+    </footer>
 </body>
 </html>
-
