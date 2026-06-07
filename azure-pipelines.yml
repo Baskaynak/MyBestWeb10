@@ -60,12 +60,17 @@ steps:
     replaceExistingArchive: true
 
 
-- task: AzureRmWebAppDeployment@5
-  displayName: 'Deploy to mybestweb10-clean'
-  inputs:
-    ConnectionType: 'AzureRM'
-    azureSubscription: 'MyAzureConn'
-    appType: 'webAppLinux'
-    WebAppName: 'mybestweb10-clean'
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    DeploymentTypeLinux: 'zipDeploy'
+- script: echo 'SuWeb .NET 10 Projesi Basariyla Derlendi ve Paketlendi! Bu projeye nazar degemez! 🧿🚀'
+  displayName: 'Nazar Koruma Logu'
+
+
+# - task: AzureRmWebAppDeployment@5
+#   displayName: 'Deploy to mybestweb10-clean'
+#   inputs:
+#     ConnectionType: 'AzureRM'
+#     azureSubscription: 'MyAzureConn'
+#     appType: 'webAppLinux'
+#     WebAppName: 'mybestweb10-clean'
+#     packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+#     DeploymentTypeLinux: 'zipDeploy'
+  
