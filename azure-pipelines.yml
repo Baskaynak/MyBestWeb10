@@ -13,6 +13,15 @@ variables:
 
 steps:
 
+# [ANALİZ BAŞLANGICI] Sistem Kaynaklarını İzlemeyi Başlat
+- script: |
+    echo "=== PERFORMANS ANALIZI BASLADI ==="
+    echo "##vso[task.logissue type=warning;]Sistem kaynak izlemesi aktif! 📊"
+    df -h
+    free -m
+    lscpu | grep "Model name"
+  displayName: '⚡ [Analiz] Sistem İlk Durum Kontrolü'
+
 # 1. Adım: .NET 10 Ortamını Hazırlama
 - task: UseDotNet@2
   displayName: 'Install .NET 10 SDK (Preview)'
@@ -32,13 +41,18 @@ steps:
 - script: dotnet format --verify-no-changes
   displayName: 'Check Code Formatting'
 
-# 4. Adım: Kodun Derlenmesi (Build)
-- task: DotNetCoreCLI@2
-  displayName: 'Build Project'
-  inputs:
-    command: 'build'
-    projects: 'MyBestWeb10/MyBestWeb10.csproj'
-    arguments: '--configuration $(buildConfiguration) --no-restore'
+# 4. Adım: Kodun Derlenmesi (Build) + Zaman Ölçümü
+- script: |
+    echo "Build basliyor, kronometre acildi..."
+    START_TIME=$(date +%s)
+    
+    dotnet build MyBestWeb10/MyBestWeb10.csproj --configuration $(buildConfiguration) --no-restore
+    
+    END_TIME=$(date +%s)
+    ELAPSED=$((END_TIME - START_TIME))
+    echo "Build Suresi: $ELAPSED saniye"
+    echo "##vso[task.setvariable variable=BuildDuration]$ELAPSED"
+  displayName: 'Build Project & Measure Time'
 
 # 5. Adım: Yayına Hazırlama (Publish)
 - task: DotNetCoreCLI@2
@@ -68,9 +82,22 @@ steps:
     ArtifactName: 'SuWeb-Ready-To-Deploy'
     publishLocation: 'Container'
 
+# [ANALİZ BİTİŞİ] Şık Bir Markdown Özeti Oluşturup DevOps Özet Paneline Çakma!
+- script: |
+    echo "=== PERFORMANS ANALIZI FINISH ==="
+    echo "### 📊 SuWeb Pipeline Performans Analiz Raporu" > $(Build.ArtifactStagingDirectory)/performance.md
+    echo "---" >> $(Build.ArtifactStagingDirectory)/performance.md
+    echo "| Metrik | Durum / Deger |" >> $(Build.ArtifactStagingDirectory)/performance.md
+    echo "| :--- | :--- |" >> $(Build.ArtifactStagingDirectory)/performance.md
+    echo "| ⏱️ **Toplam Build Suresi** | \$(BuildDuration) saniye |" >> $(Build.ArtifactStagingDirectory)/performance.md
+    echo "| 🧠 **Harcanan Max Bellek** | \$(free -m | awk '/Mem:/ {print \$3}') MB / \$(free -m | awk '/Mem:/ {print \$2}') MB |" >> $(Build.ArtifactStagingDirectory)/performance.md
+    echo "| 🚀 **Ajan Durumu** | Tam Gaz Aktif 🟢 |" >> $(Build.ArtifactStagingDirectory)/performance.md
+    echo "##vso[task.uploadsummary]$(Build.ArtifactStagingDirectory)/performance.md"
+  displayName: '📊 [Analiz] Performans Raporunu Panele Yazdır'
+
 # 8. Adım: Nazar Kalkanı Logumuz
-- script: echo 'SuWeb v2 Pipeline Basariyla Tamamlandi! Ciktilar DevOps bulutuna yuklendi! 🧿🚀'
-  displayName: 'Nazar Koruma Logu v2'
+- script: echo 'SuWeb v3 Performance Pipeline Tamamlandi! Grafiksel veriler hazir! 2026 DevOps Style! **Harfi Harfine Başarıldı!** 🧿🚀'
+  displayName: 'Nazar Koruma Logu v3'
 
 # - task: AzureRmWebAppDeployment@5
 #   displayName: 'Deploy to mybestweb10-clean'
@@ -81,4 +108,3 @@ steps:
 #     WebAppName: 'mybestweb10-clean'
 #     packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
 #     DeploymentTypeLinux: 'zipDeploy'
-  
