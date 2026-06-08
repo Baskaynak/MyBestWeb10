@@ -1,4 +1,4 @@
-# Starter pipeline zenginleştirilmiş v3.1 sürümü
+# Starter pipeline zenginleştirilmiş v5.1 (Azure DevOps CI + GitHub Pages CD)
 trigger:
 - main
 
@@ -12,6 +12,7 @@ variables:
   buildConfiguration: 'Release'
   projectPath: 'MyBestWeb10/MyBestWeb10.csproj'
   artifactName: 'SuWeb-Ready-To-Deploy'
+  githubRepo: 'Baskaynak/MyBestWeb10' # GitHub kullanıcı adın ve repo adın
 
 steps:
 
@@ -58,21 +59,21 @@ steps:
     echo "##vso[task.setvariable variable=BuildDuration]$ELAPSED"
   displayName: 'Build Project & Measure Time'
 
-# 5. Adım: Yayına Hazırlama (Publish) - Merkezi değişken bağlandı!
+# 5. Adım: Yayına Hazırlama (Publish) - Derlenmiş dosyaları özel alt klasöre toplar
 - task: DotNetCoreCLI@2
   displayName: 'Publish Artifacts'
   inputs:
     command: 'publish'
     publishWebProjects: false
     projects: '$(projectPath)'
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/out'
     zipAfterPublish: false
 
 # 6. Adım: Zip Paketi Oluşturma
 - task: ArchiveFiles@2
   displayName: 'Zip Application Code'
   inputs:
-    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)' 
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/out' 
     includeRootFolder: false
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
@@ -92,7 +93,7 @@ steps:
     USED_RAM=$(free -m | awk '/Mem:/ {print $3}')
     TOTAL_RAM=$(free -m | awk '/Mem:/ {print $2}')
     
-    echo "### 📊 SuWeb Pipeline v4 Kalite ve Performans Raporu" > $(Build.ArtifactStagingDirectory)/performance.md
+    echo "### 📊 SuWeb Pipeline v5.1 Kalite ve Performans Raporu" > $(Build.ArtifactStagingDirectory)/performance.md
     echo "---" >> $(Build.ArtifactStagingDirectory)/performance.md
     echo "| Metrik | Durum / Deger |" >> $(Build.ArtifactStagingDirectory)/performance.md
     echo "| :--- | :--- |" >> $(Build.ArtifactStagingDirectory)/performance.md
@@ -104,6 +105,24 @@ steps:
     echo "##vso[task.uploadsummary]$(Build.ArtifactStagingDirectory)/performance.md"
   displayName: '📊 [Analiz] Performans Raporunu Panele Yazdır'
 
-# 8. Adım: Nazar Kalkanı Logumuz
-- script: echo 'SuWeb v4 Kalite Kapili Pipeline Basariyla Tamamlandi! 🧿🚀'
-  displayName: 'Nazar Koruma Logu v4'
+# 🚀 9. Adım: GERÇEK CD ADIMI - Üretilen Dosyaları GitHub Pages'a Fırlat
+- script: |
+    echo "GitHub Pages Dağıtımı Başlıyor..."
+    cd $(Build.ArtifactStagingDirectory)/out
+    
+    # Git kimlik ayarları
+    git config --global user.email "devops-agent@azure.com"
+    git config --global user.name "Azure DevOps Agent"
+    
+    # Geçici bir git reposu kurup dosyaları ghp-pages branch'ine zorla fırlatıyoruz
+    git init
+    git add .
+    git commit -m "Deploy from Azure DevOps Pipeline v5.1 [Skip CI]"
+    
+    # Kasaya sakladığımız gizli token'ı kullanarak güvenli bağlantı sağlıyoruz
+    git push --force --quiet "https://$(GitHubToken)@github.com/$(githubRepo).git" main:gh-pages
+  displayName: '🚀 [CD] Üretilen Dosyaları GitHub Pages (gh-pages) Branchine Dağıt'
+
+# 10. Adım: Nazar Kalkanı Logumuz
+- script: echo 'SuWeb v5.1 Hibrit CI/CD Pipeline Başarıyla Tamamlandı! 🧿🚀'
+  displayName: 'Nazar Koruma Logu v5.1'
