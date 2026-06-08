@@ -10,6 +10,8 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  projectPath: 'MyBestWeb10/MyBestWeb10.csproj'
+  artifactName: 'SuWeb-Ready-To-Deploy'
 
 steps:
 
@@ -30,23 +32,25 @@ steps:
     version: '10.x'
     includePreviewVersions: true
 
-# 2. Adım: Paketleri Çekme (Restore)
+# 2. Adım: Paketleri Çekme (Restore) - Merkezi değişken bağlandı!
 - task: DotNetCoreCLI@2
   displayName: 'Restore Dependencies'
   inputs:
     command: 'restore'
-    projects: 'MyBestWeb10/MyBestWeb10.csproj'
+    projects: '$(projectPath)'
 
-# 3. Adım: Kod Format Kontrolü
-- script: dotnet format --verify-no-changes
-  displayName: 'Check Code Formatting'
+# 3. Adım: KATI KALİTE KAPISI (Check Code Formatting)
+- script: |
+    echo "Kod format kalitesi denetleniyor..."
+    dotnet format --verify-no-changes
+  displayName: '🛡️ [Kalite Kapısı] Kod Standartları Kontrolü'
 
-# 4. Adım: Kodun Derlenmesi (Build) + Zaman Ölçümü
+# 4. Adım: Kodun Derlenmesi (Build) + Zaman Ölçümü - Merkezi değişken bağlandı!
 - script: |
     echo "Build basliyor, kronometre acildi..."
     START_TIME=$(date +%s)
     
-    dotnet build MyBestWeb10/MyBestWeb10.csproj --configuration $(buildConfiguration) --no-restore
+    dotnet build $(projectPath) --configuration $(buildConfiguration) --no-restore
     
     END_TIME=$(date +%s)
     ELAPSED=$((END_TIME - START_TIME))
@@ -54,13 +58,13 @@ steps:
     echo "##vso[task.setvariable variable=BuildDuration]$ELAPSED"
   displayName: 'Build Project & Measure Time'
 
-# 5. Adım: Yayına Hazırlama (Publish)
+# 5. Adım: Yayına Hazırlama (Publish) - Merkezi değişken bağlandı!
 - task: DotNetCoreCLI@2
   displayName: 'Publish Artifacts'
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: '**/MyBestWeb10.csproj'
+    projects: '$(projectPath)'
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: false
 
@@ -74,32 +78,32 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
 
-# 7. Adım: Çıktıyı DevOps Panelinde Saklama
+# 7. Adım: Çıktıyı DevOps Panelinde Saklama - Paket ismi değişkene bağlandı!
 - task: PublishBuildArtifacts@1
   displayName: 'Upload Zip to Azure DevOps Storage'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    ArtifactName: 'SuWeb-Ready-To-Deploy'
+    ArtifactName: '$(artifactName)'
     publishLocation: 'Container'
 
-# [ANALİZ BİTİŞİ] Hatalardan Temizlenmiş Net Rapor Adımı
+# [ANALİZ BİTİŞİ] Zenginleştirilmiş Yeni Rapor Adımı
 - script: |
     echo "=== PERFORMANS ANALIZI FINISH ==="
     USED_RAM=$(free -m | awk '/Mem:/ {print $3}')
     TOTAL_RAM=$(free -m | awk '/Mem:/ {print $2}')
     
-    echo "### 📊 SuWeb Pipeline Performans Analiz Raporu" > $(Build.ArtifactStagingDirectory)/performance.md
+    echo "### 📊 SuWeb Pipeline v4 Kalite ve Performans Raporu" > $(Build.ArtifactStagingDirectory)/performance.md
     echo "---" >> $(Build.ArtifactStagingDirectory)/performance.md
     echo "| Metrik | Durum / Deger |" >> $(Build.ArtifactStagingDirectory)/performance.md
     echo "| :--- | :--- |" >> $(Build.ArtifactStagingDirectory)/performance.md
     echo "| ⏱️ **Toplam Build Suresi** | $(BuildDuration) saniye |" >> $(Build.ArtifactStagingDirectory)/performance.md
     echo "| 🧠 **Harcanan Max Bellek** | $USED_RAM MB / $TOTAL_RAM MB |" >> $(Build.ArtifactStagingDirectory)/performance.md
-    echo "| 🚀 **Ajan Durumu** | Tam Gaz Aktif 🟢 |" >> $(Build.ArtifactStagingDirectory)/performance.md
+    echo "| 🛡️ **Kalite Kapısı Durumu** | Gecildi 🟢 |" >> $(Build.ArtifactStagingDirectory)/performance.md
     
     cat $(Build.ArtifactStagingDirectory)/performance.md
     echo "##vso[task.uploadsummary]$(Build.ArtifactStagingDirectory)/performance.md"
   displayName: '📊 [Analiz] Performans Raporunu Panele Yazdır'
 
 # 8. Adım: Nazar Kalkanı Logumuz
-- script: echo 'SuWeb v3.1 Kusursuz Pipeline Tamamlandi! 🧿🚀'
-  displayName: 'Nazar Koruma Logu v3'
+- script: echo 'SuWeb v4 Kalite Kapili Pipeline Basariyla Tamamlandi! 🧿🚀'
+  displayName: 'Nazar Koruma Logu v4'
