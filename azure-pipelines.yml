@@ -105,10 +105,15 @@ steps:
     echo "##vso[task.uploadsummary]$(Build.ArtifactStagingDirectory)/performance.md"
   displayName: '📊 [Analiz] Performans Raporunu Panele Yazdır'
 
-# 🚀 9. Adım: GERÇEK CD ADIMI - Üretilen Dosyaları GitHub Pages'a Güvenli Fırlat
+# 🚀 9. Adım: GERÇEK CD ADIMI - Sadece wwwroot İçindeki Statik Dosyaları Dağıt
 - script: |
     echo "GitHub Pages Dağıtımı Başlıyor..."
-    cd $(Build.ArtifactStagingDirectory)/out
+    
+    # 🔥 İŞTE O MÜKEMMEL DOKUNUŞ: Direkt wwwroot klasörünün içine sızıyoruz!
+    cd $(Build.ArtifactStagingDirectory)/out/MyBestWeb10/wwwroot
+    
+    echo "wwwroot içeriği doğrulanıyor (Burada index.html görünmeli):"
+    ls -la
     
     # Git kimlik ayarları
     git config --global user.email "devops-agent@azure.com"
@@ -116,15 +121,13 @@ steps:
     
     # Geçici repoyu kuruyoruz
     git init
-    
-    # 🔥 İŞTE KRİTİK DOKUNUŞ: Varsayılan branch adını zorla 'main' yapıyoruz
     git checkout -b main
     
     # Dosyaları commitleme
     git add .
-    git commit -m "Deploy from Azure DevOps Pipeline v5.3 [Skip CI]"
+    git commit -m "Deploy from Azure DevOps Pipeline v5.5 [Skip CI]"
     
-    # Şimdi aslanlar gibi fırlatabiliriz, branchler birebir eşleşti!
+    # Doğrudan statik dosyaları gh-pages branch'ine tertemiz fırlatıyoruz
     git push --force "https://$(GitHubToken)@github.com/$(githubRepo).git" main:gh-pages
   displayName: '🚀 [CD] Üretilen Dosyaları GitHub Pages (gh-pages) Branchine Dağıt'
 
