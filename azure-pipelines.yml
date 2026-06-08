@@ -105,7 +105,7 @@ steps:
     echo "##vso[task.uploadsummary]$(Build.ArtifactStagingDirectory)/performance.md"
   displayName: '📊 [Analiz] Performans Raporunu Panele Yazdır'
 
-# 🚀 9. Adım: GERÇEK CD ADIMI - Üretilen Dosyaları GitHub Pages'a Fırlat
+# 🚀 9. Adım: GERÇEK CD ADIMI - Üretilen Dosyaları GitHub Pages'a Güvenli Fırlat
 - script: |
     echo "GitHub Pages Dağıtımı Başlıyor..."
     cd $(Build.ArtifactStagingDirectory)/out
@@ -114,13 +114,18 @@ steps:
     git config --global user.email "devops-agent@azure.com"
     git config --global user.name "Azure DevOps Agent"
     
-    # Geçici bir git reposu kurup dosyaları ghp-pages branch'ine zorla fırlatıyoruz
+    # Geçici repoyu kuruyoruz
     git init
-    git add .
-    git commit -m "Deploy from Azure DevOps Pipeline v5.1 [Skip CI]"
     
-    # Kasaya sakladığımız gizli token'ı kullanarak güvenli bağlantı sağlıyoruz
-    git push --force --quiet "https://$(GitHubToken)@github.com/$(githubRepo).git" main:gh-pages
+    # 🔥 İŞTE KRİTİK DOKUNUŞ: Varsayılan branch adını zorla 'main' yapıyoruz
+    git checkout -b main
+    
+    # Dosyaları commitleme
+    git add .
+    git commit -m "Deploy from Azure DevOps Pipeline v5.3 [Skip CI]"
+    
+    # Şimdi aslanlar gibi fırlatabiliriz, branchler birebir eşleşti!
+    git push --force "https://$(GitHubToken)@github.com/$(githubRepo).git" main:gh-pages
   displayName: '🚀 [CD] Üretilen Dosyaları GitHub Pages (gh-pages) Branchine Dağıt'
 
 # 10. Adım: Nazar Kalkanı Logumuz
