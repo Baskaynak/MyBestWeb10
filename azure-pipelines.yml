@@ -105,14 +105,18 @@ steps:
     echo "##vso[task.uploadsummary]$(Build.ArtifactStagingDirectory)/performance.md"
   displayName: '📊 [Analiz] Performans Raporunu Panele Yazdır'
 
-# 🚀 9. Adım: GERÇEK CD ADIMI - Sadece wwwroot İçindeki Statik Dosyaları Dağıt
+# 🚀 9. Adım: GERÇEK CD ADIMI - Eksik HTML Dosyalarını Topla ve Dağıt
 - script: |
-    echo "GitHub Pages Dağıtımı Başlıyor..."
+    echo "Eksik HTML sayfaları toplanıyor..."
     
-    # 🔥 İŞTE O MÜKEMMEL DOKUNUŞ: Direkt wwwroot klasörünün içine sızıyoruz!
+    # 1. Kök dizindeki index.html ve hakkimda.html dosyalarını wwwroot'un içine kopyalıyoruz
+    cp $(Build.SourcesDirectory)/index.html $(Build.ArtifactStagingDirectory)/out/MyBestWeb10/wwwroot/ 2>/dev/null || true
+    cp $(Build.SourcesDirectory)/hakkimda.html $(Build.ArtifactStagingDirectory)/out/MyBestWeb10/wwwroot/ 2>/dev/null || true
+    
+    echo "GitHub Pages Dağıtımı Başlıyor..."
     cd $(Build.ArtifactStagingDirectory)/out/MyBestWeb10/wwwroot
     
-    echo "wwwroot içeriği doğrulanıyor (Burada index.html görünmeli):"
+    echo "Güncel klasör içeriği (Artık index.html burada olmalı!):"
     ls -la
     
     # Git kimlik ayarları
@@ -125,9 +129,9 @@ steps:
     
     # Dosyaları commitleme
     git add .
-    git commit -m "Deploy from Azure DevOps Pipeline v5.5 [Skip CI]"
+    git commit -m "Deploy from Azure DevOps Pipeline v5.6 [Skip CI]"
     
-    # Doğrudan statik dosyaları gh-pages branch'ine tertemiz fırlatıyoruz
+    # Her şeyi eksiksiz fırlatıyoruz!
     git push --force "https://$(GitHubToken)@github.com/$(githubRepo).git" main:gh-pages
   displayName: '🚀 [CD] Üretilen Dosyaları GitHub Pages (gh-pages) Branchine Dağıt'
 
