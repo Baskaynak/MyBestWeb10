@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page - MyBestWeb10</title>
 
-    <link rel="stylesheet" href="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="wwwroot/css/site.css?v=SfWn6pzf9gMD8vUGG3OzwmW9FLxjMnZmW9LNs5M76Mg" />
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/site.css?v=SfWn6pzf9gMD8vUGG3OzwmW9FLxjMnZmW9LNs5M76Mg" />
     <link rel="stylesheet" href="MyBestWeb10.styles.css?v=LIiW6ERJ3hRPIg5NmePEhEPAAZ171_ITBGnIqwf-Xjc" />
 
     <style>
@@ -21,6 +21,23 @@
         @keyframes navbarDon {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* 🌟 Yeni Eklenen Teknoloji Kartları Efektleri */
+        .hover-translate {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-translate:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 1rem 3rem rgba(0,0,0,.125)!important;
+        }
+        .bg-light-primary { background-color: #e3f2fd; }
+        .bg-light-success { background-color: #e8f5e9; }
+        .bg-light-warning { background-color: #fff3e0; }
+        .text-gradient {
+            background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
@@ -52,12 +69,73 @@
     <div b-h2j57z57ys class="container">
         <main b-h2j57z57ys role="main" class="pb-3">
             
-            <div class="text-center">
-                <h1>DEPLOY TEST 999</h1>
-                <h1 class="display-4">SuWeb Dünyasina Hoş Geldiniz!</h1>
-                <p>
-                    Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>
-                </p>
+            <div class="text-center my-5">
+                <h1 class="display-4 fw-bold text-gradient">SuWeb Dünyasına Hoş Geldiniz!</h1>
+                <p class="lead text-muted">.NET Ekosistemi, DevOps Pipeline'ları ve Güçlü Altyapı Çözümleri</p>
+                <div class="spinner-grow text-primary shadow-sm" role="status" style="width: 1rem; height: 1rem;"></div>
+            </div>
+
+            <div class="container my-5">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold position-relative d-inline-block pb-2 border-bottom border-primary border-3">
+                        🧠 Neler Yapıyorum?
+                    </h2>
+                    <p class="text-muted mt-2">Geliştirdiğim, yönettiğim ve tutkuyla kullandığım teknolojiler</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm hover-translate">
+                            <div class="card-body p-4 text-center">
+                                <div class="icon-shape bg-light-primary text-primary rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <span style="font-size: 1.8rem;">⚙️</span>
+                                </div>
+                                <h4 class="card-title fw-bold mb-3">Backend Development</h4>
+                                <p class="card-text text-muted small">Performanslı, ölçeklenebilir ve güvenli kurumsal mimariler inşa ediyorum.</p>
+                                <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                                    <span class="badge bg-dark text-white fw-semibold">.NET 10</span>
+                                    <span class="badge bg-primary text-white fw-semibold">C#</span>
+                                    <span class="badge bg-info text-dark fw-semibold">ASP.NET Core</span>
+                                    <span class="badge bg-secondary text-white fw-semibold">Web API</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm hover-translate">
+                            <div class="card-body p-4 text-center">
+                                <div class="icon-shape bg-light-success text-success rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <span style="font-size: 1.8rem;">🚀</span>
+                                </div>
+                                <h4 class="card-title fw-bold mb-3">DevOps & Cloud</h4>
+                                <p class="card-text text-muted small">Kodun üretime yolculuğunu otomatikleştiriyor ve bulut süreçlerini yönetiyorum.</p>
+                                <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                                    <span class="badge bg-info text-dark fw-semibold">Azure DevOps</span>
+                                    <span class="badge bg-dark text-white fw-semibold">GitHub Actions</span>
+                                    <span class="badge bg-primary text-white fw-semibold">CI/CD Pipelines</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm hover-translate">
+                            <div class="card-body p-4 text-center">
+                                <div class="icon-shape bg-light-warning text-warning rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <span style="font-size: 1.8rem;">📊</span>
+                                </div>
+                                <h4 class="card-title fw-bold mb-3">SysAdmin & Monitoring</h4>
+                                <p class="card-text text-muted small">Sistemleri canlı izliyor, metrikleri topluyor ve Linux sunucu yönetimini üstleniyorum.</p>
+                                <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                                    <span class="badge bg-warning text-dark fw-semibold">Linux (Ubuntu)</span>
+                                    <span class="badge bg-danger text-white fw-semibold">Grafana</span>
+                                    <span class="badge bg-dark text-white fw-semibold">Git</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </main>
@@ -68,8 +146,9 @@
             &copy; 2026 - MyBestWeb10 - <a href="index.html">Privacy</a>
         </div>
     </footer>
-    <script src="wwwroot/lib/jquery/dist/jquery.min.js"></script>
-    <script src="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="wwwroot/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo"></script>
+    
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/js/site.js?v=hRQyftXiu1lLX2P9Ly9xa4gHJgLeR1uGN5qegUobtGo"></script>
 </body>
 </html>
