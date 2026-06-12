@@ -1,4 +1,4 @@
-# Starter pipeline zenginleştirilmiş v5.1 (Azure DevOps CI + GitHub Pages CD)
+# Starter pipeline zenginleştirilmiş v6.0 (Azure DevOps CI + GitHub Pages CD)
 trigger:
 - main
 
@@ -12,7 +12,7 @@ variables:
   buildConfiguration: 'Release'
   projectPath: 'MyBestWeb10/MyBestWeb10.csproj'
   artifactName: 'SuWeb-Ready-To-Deploy'
-  githubRepo: 'Baskaynak/MyBestWeb10' # GitHub kullanıcı adın ve repo adın
+  githubRepo: 'Baskaynak/MyBestWeb10'
 
 steps:
 
@@ -33,7 +33,7 @@ steps:
     version: '10.x'
     includePreviewVersions: true
 
-# 2. Adım: Paketleri Çekme (Restore) - Merkezi değişken bağlandı!
+# 2. Adım: Paketleri Çekme (Restore)
 - task: DotNetCoreCLI@2
   displayName: 'Restore Dependencies'
   inputs:
@@ -46,7 +46,7 @@ steps:
     dotnet format --verify-no-changes
   displayName: '🛡️ [Kalite Kapısı] Kod Standartları Kontrolü'
 
-# 4. Adım: Kodun Derlenmesi (Build) + Zaman Ölçümü - Merkezi değişken bağlandı!
+# 4. Adım: Kodun Derlenmesi (Build) + Zaman Ölçümü
 - script: |
     echo "Build basliyor, kronometre acildi..."
     START_TIME=$(date +%s)
@@ -59,7 +59,7 @@ steps:
     echo "##vso[task.setvariable variable=BuildDuration]$ELAPSED"
   displayName: 'Build Project & Measure Time'
 
-# 5. Adım: Yayına Hazırlama (Publish) - Derlenmiş dosyaları özel alt klasöre toplar
+# 5. Adım: Yayına Hazırlama (Publish)
 - task: DotNetCoreCLI@2
   displayName: 'Publish Artifacts'
   inputs:
@@ -69,7 +69,7 @@ steps:
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/out'
     zipAfterPublish: false
 
-# 6. Adım: Zip Paketi Oluşturma
+# 6. Adım: Zip Paketi Oluşturma (DevOps saklaması için)
 - task: ArchiveFiles@2
   displayName: 'Zip Application Code'
   inputs:
@@ -79,7 +79,7 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
 
-# 7. Adım: Çıktıyı DevOps Panelinde Saklama - Paket ismi değişkene bağlandı!
+# 7. Adım: Çıktıyı DevOps Panelinde Saklama
 - task: PublishBuildArtifacts@1
   displayName: 'Upload Zip to Azure DevOps Storage'
   inputs:
@@ -87,13 +87,13 @@ steps:
     ArtifactName: '$(artifactName)'
     publishLocation: 'Container'
 
-# [ANALİZ BİTİŞİ] Zenginleştirilmiş Yeni Rapor Adımı
+# [ANALİZ BİTİŞİ] Zenginleştirilmiş Rapor Adımı (KORUNDU)
 - script: |
     echo "=== PERFORMANS ANALIZI FINISH ==="
     USED_RAM=$(free -m | awk '/Mem:/ {print $3}')
     TOTAL_RAM=$(free -m | awk '/Mem:/ {print $2}')
     
-    echo "### 📊 SuWeb Pipeline v5.1 Kalite ve Performans Raporu" > $(Build.ArtifactStagingDirectory)/performance.md
+    echo "### 📊 SuWeb Pipeline v6.0 Kalite ve Performans Raporu" > $(Build.ArtifactStagingDirectory)/performance.md
     echo "---" >> $(Build.ArtifactStagingDirectory)/performance.md
     echo "| Metrik | Durum / Deger |" >> $(Build.ArtifactStagingDirectory)/performance.md
     echo "| :--- | :--- |" >> $(Build.ArtifactStagingDirectory)/performance.md
@@ -105,37 +105,43 @@ steps:
     echo "##vso[task.uploadsummary]$(Build.ArtifactStagingDirectory)/performance.md"
   displayName: '📊 [Analiz] Performans Raporunu Panele Yazdır'
 
-# 🚀 9. Adım: GERÇEK CD ADIMI - Dışarıdaki HTML'leri İçeri Kopyala ve Eksiksiz Dağıt
+# 🚀 9. Adım: KESİN VE GARANTİLİ CD ADIMI (Yolları Güvenceye Alınmış Hali)
 - script: |
     echo "=== DAĞITIM ENTEGRASYONU BAŞLADI ==="
     
-    # 1. Kök dizindeki ana HTML dosyalarını wwwroot'un içine zorla kopyalıyoruz
-    echo "Dışarıdaki html dosyaları wwwroot içine taşınıyor..."
-    cp $(Build.SourcesDirectory)/index.html $(Build.ArtifactStagingDirectory)/out/MyBestWeb10/wwwroot/ 2>/dev/null || true
-    cp $(Build.SourcesDirectory)/hakkimda.html $(Build.ArtifactStagingDirectory)/out/MyBestWeb10/wwwroot/ 2>/dev/null || true
+    # 1. GitHub Pages için temiz bir geçici klasör kuralım
+    mkdir -p $(Build.ArtifactStagingDirectory)/gh_pages_deploy
     
-    # 2. Şimdi tam donanımlı wwwroot klasörünün içine giriş yapıyoruz
-    cd $(Build.ArtifactStagingDirectory)/out/MyBestWeb10/wwwroot
+    # 2. Eğer .NET derlemesinden gelen css, js, lib varsa ÖNCE onları geçici klasöre dolduralım
+    if [ -d "$(Build.ArtifactStagingDirectory)/out/wwwroot" ]; then
+      cp -r $(Build.ArtifactStagingDirectory)/out/wwwroot/* $(Build.ArtifactStagingDirectory)/gh_pages_deploy/ 2>/dev/null || true
+    elif [ -d "$(Build.SourcesDirectory)/MyBestWeb10/wwwroot" ]; then
+      cp -r $(Build.SourcesDirectory)/MyBestWeb10/wwwroot/* $(Build.ArtifactStagingDirectory)/gh_pages_deploy/ 2>/dev/null || true
+    fi
     
-    echo "Son kontrol! wwwroot içeriği (Artık index.html burada listelenmeli):"
+    # 3. Bizim o CDN'li, canavar gibi hazırladığımız index.html ve hakkimda.html dosyalarını tam köke basıyoruz
+    cp $(Build.SourcesDirectory)/index.html $(Build.ArtifactStagingDirectory)/gh_pages_deploy/
+    cp $(Build.SourcesDirectory)/hakkimda.html $(Build.ArtifactStagingDirectory)/gh_pages_deploy/ 2>/dev/null || true
+    
+    # 4. Dağıtım klasörünün içine dalıyoruz
+    cd $(Build.ArtifactStagingDirectory)/gh_pages_deploy
+    
+    echo "=== GİDECEK DOSYALARIN LİSTESİ ==="
     ls -la
     
-    # Git kimlik ayarları
+    # Git konfigürasyonları
     git config --global user.email "devops-agent@azure.com"
     git config --global user.name "Azure DevOps Agent"
     
-    # Geçici repoyu kuruyoruz
     git init
     git checkout -b main
-    
-    # Dosyaları commitleme
     git add .
-    git commit -m "Deploy from Azure DevOps Pipeline v5.7 [Skip CI]"
+    git commit -m "Deploy from Azure DevOps Pipeline v6.0 [Skip CI]"
     
-    # HTML, CSS ve JS'lerin hepsini bir bütün halinde gh-pages branch'ine fırlatıyoruz!
+    # GitHub'a füze hızıyla force push!
     git push --force "https://$(GitHubToken)@github.com/$(githubRepo).git" main:gh-pages
   displayName: '🚀 [CD] Üretilen Dosyaları GitHub Pages (gh-pages) Branchine Dağıt'
 
-# 10. Adım: Nazar Kalkanı Logumuz
-- script: echo 'SuWeb v5.1 Hibrit CI/CD Pipeline Başarıyla Tamamlandı! 🧿🚀'
-  displayName: 'Nazar Koruma Logu v5.1'
+# 10. Adım: Nazar Kalkanı Logumuz (KORUNDU)
+- script: echo 'SuWeb v6.0 Hibrit CI/CD Pipeline Başarıyla Tamamlandı! 🧿🚀'
+  displayName: 'Nazar Koruma Logu v6.0'
