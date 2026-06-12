@@ -1,20 +1,115 @@
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Hakkimda";
 }
 
-<h1>Su'nun Yeni Sayfasi</h1>
-<p>Bu sayfa yeni bir branch uzerinden, yeni bir dosya olarak eklendi!</p>
+<style>
+    /* Modern Kart ve Stil Düzenlemeleri */
+    .profile-card {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        border: none;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border-radius: 15px;
+        transition: transform 0.3s ease;
+    }
+    .profile-card:hover {
+        transform: translateY(-5px);
+    }
+    .tech-badge {
+        background-color: #e9ecef;
+        color: #495057;
+        font-weight: 500;
+        padding: 8px 16px;
+        border-radius: 20px;
+        display: inline-block;
+        margin: 5px;
+        transition: all 0.3s ease;
+    }
+    .tech-badge:hover {
+        background-color: #0d6efd;
+        color: white;
+    }
+    .progress {
+        height: 10px;
+        border-radius: 5px;
+    }
+    .orta-boncuk {
+        font-size: 5rem;
+        animation: navbarDon 5s infinite linear;
+    }
+</style>
 
-<h1>Hakkimda</h1>
-<p>Su an saat: @DateTime.Now</p>
+<div class="container mt-4">
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold text-dark">Su'nun Yeni Dünyası</h1>
+        <p class="text-muted">Geleceğin en başarılı .NET geliştiricisi adım adım yükseliyor. 😉</p>
+    </div>
 
-<div style="text-align: center; margin-top: 30px;">
-    <div class="orta-boncuk">
-        <div class="acik-mavi-h">
-            <div class="beyaz-h">
-                <div class="siyah-h"></div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card profile-card p-4 text-center h-100">
+                <div class="mb-3" style="font-size: 4.5rem;">💻</div>
+                <h3 class="fw-bold mb-1">Hakkımda</h3>
+                <p class="text-muted small">Software Developer & DevOps Enthusiast</p>
+                <hr>
+                <p class="text-start text-secondary small" style="line-height: 1.6;">
+                    Yenilikcji teknolojiler, bulut altyapıları ve modern web mimarileri üzerine çalışan, projelerine otomatik CI/CD pipeline süreçleri entegre eden bir mühendis adayı.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card profile-card p-4 mb-4">
+                <h4 class="fw-bold mb-4 text-dark">🚀 Teknik Yetkinlikler</h4>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="fw-medium">.NET Ecosystem (C# / ASP.NET Core)</span>
+                        <span class="text-muted fw-bold text-primary">90%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-primary" style="width: 90%"></div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="fw-medium">CI/CD Pipelines & DevOps (Azure DevOps)</span>
+                        <span class="text-muted fw-bold text-success">85%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" style="width: 85%"></div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="fw-medium">Web Geliştirme (HTML5 / CSS3 / Bootstrap)</span>
+                        <span class="text-muted fw-bold text-info">80%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-info" style="width: 80%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card profile-card p-4">
+                <h4 class="fw-bold mb-3 text-dark">🛠️ Araçlar & Teknolojiler</h4>
+                <div class="pt-2">
+                    <span class="tech-badge">C#</span>
+                    <span class="tech-badge">.NET 10</span>
+                    <span class="tech-badge">ASP.NET MVC</span>
+                    <span class="tech-badge">Azure Pipelines</span>
+                    <span class="tech-badge">GitHub Pages</span>
+                    <span class="tech-badge">Bootstrap 5</span>
+                    <span class="tech-badge">Git & GitHub</span>
+                </div>
             </div>
         </div>
     </div>
-    <p style="font-size: 16px; margin-top: 15px; font-weight: bold;">Masallah!</p>
+
+    <div class="text-center mt-5 pt-4">
+        <div class="orta-boncuk">🧿</div>
+        <p class="fs-5 mt-3 fw-bold text-dark">Maşallah!</p>
+    </div>
 </div>
