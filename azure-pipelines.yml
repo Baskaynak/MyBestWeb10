@@ -105,43 +105,40 @@ steps:
     echo "##vso[task.uploadsummary]$(Build.ArtifactStagingDirectory)/performance.md"
   displayName: '📊 [Analiz] Performans Raporunu Panele Yazdır'
 
-# 🚀 9. Adım: KESİN VE GARANTİLİ CD ADIMI (Yolları Güvenceye Alınmış Hali)
+# 🚀 9. Adım: KESİN VE GARANTİLİ CD ADIMI (Klasör Karmaşası Tamamen Çözüldü)
 - script: |
     echo "=== DAĞITIM ENTEGRASYONU BAŞLADI ==="
     
-    # 1. GitHub Pages için temiz bir geçici klasör kuralım
-    mkdir -p $(Build.ArtifactStagingDirectory)/gh_pages_deploy
+    # 1. Tamamen bağımsız ve tertemiz bir geçici klasör oluştur
+    mkdir -p $(Build.ArtifactStagingDirectory)/clean_pages
     
-    # 2. Eğer .NET derlemesinden gelen css, js, lib varsa ÖNCE onları geçici klasöre dolduralım
-    if [ -d "$(Build.ArtifactStagingDirectory)/out/wwwroot" ]; then
-      cp -r $(Build.ArtifactStagingDirectory)/out/wwwroot/* $(Build.ArtifactStagingDirectory)/gh_pages_deploy/ 2>/dev/null || true
-    elif [ -d "$(Build.SourcesDirectory)/MyBestWeb10/wwwroot" ]; then
-      cp -r $(Build.SourcesDirectory)/MyBestWeb10/wwwroot/* $(Build.ArtifactStagingDirectory)/gh_pages_deploy/ 2>/dev/null || true
+    # 2. Sadece ve sadece tarayıcının görmesini istediğimiz ana HTML dosyalarını buraya kopyala
+    cp $(Build.SourcesDirectory)/index.html $(Build.ArtifactStagingDirectory)/clean_pages/
+    cp $(Build.SourcesDirectory)/hakkimda.html $(Build.ArtifactStagingDirectory)/clean_pages/
+    
+    # 3. Eğer projede css/js klasörleri varsa onları da bu temiz klasörün içine taşı
+    if [ -d "$(Build.SourcesDirectory)/MyBestWeb10/wwwroot" ]; then
+      cp -r $(Build.SourcesDirectory)/MyBestWeb10/wwwroot/* $(Build.ArtifactStagingDirectory)/clean_pages/ 2>/dev/null || true
     fi
     
-    # 3. Bizim o CDN'li, canavar gibi hazırladığımız index.html ve hakkimda.html dosyalarını tam köke basıyoruz
-    cp $(Build.SourcesDirectory)/index.html $(Build.ArtifactStagingDirectory)/gh_pages_deploy/
-    cp $(Build.SourcesDirectory)/hakkimda.html $(Build.ArtifactStagingDirectory)/gh_pages_deploy/ 2>/dev/null || true
+    # 4. Temiz klasörün içine giriş yap
+    cd $(Build.ArtifactStagingDirectory)/clean_pages
     
-    # 4. Dağıtım klasörünün içine dalıyoruz
-    cd $(Build.ArtifactStagingDirectory)/gh_pages_deploy
-    
-    echo "=== GİDECEK DOSYALARIN LİSTESİ ==="
+    echo "=== GİDECEK DOSYALARIN NET LİSTESİ ==="
     ls -la
     
-    # Git konfigürasyonları
+    # Git konfigürasyonları ve zorlu push
     git config --global user.email "devops-agent@azure.com"
     git config --global user.name "Azure DevOps Agent"
     
     git init
     git checkout -b main
     git add .
-    git commit -m "Deploy from Azure DevOps Pipeline v6.0 [Skip CI]"
+    git commit -m "Deploy from Azure DevOps Pipeline v6.5 [Skip CI]"
     
-    # GitHub'a füze hızıyla force push!
+    # GitHub gh-pages branch'ini tamamen sıfırlayıp sadece bu temiz dosyaları basıyoruz
     git push --force "https://$(GitHubToken)@github.com/$(githubRepo).git" main:gh-pages
   displayName: '🚀 [CD] Üretilen Dosyaları GitHub Pages (gh-pages) Branchine Dağıt'
-
 # 10. Adım: Nazar Kalkanı Logumuz (KORUNDU)
 - script: echo 'SuWeb v6.0 Hibrit CI/CD Pipeline Başarıyla Tamamlandı! 🧿🚀'
   displayName: 'Nazar Koruma Logu v6.0'
