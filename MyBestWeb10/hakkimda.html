@@ -4,11 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hakkimda - MyBestWeb10</title>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
     <style>
-        /* Orijinal Animasyonun (KORUNDU) */
         .nazar-boncugu {
             display: inline-block !important;
             font-size: 1.5rem;
@@ -16,19 +13,17 @@
             animation: navbarDon 3s infinite linear !important;
             vertical-align: middle;
         }
-
         @keyframes navbarDon {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* 🆕 Yeni Modern Kart ve Stil Düzenlemeleri */
         .profile-card {
             background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             border: none;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
             border-radius: 15px;
             transition: transform 0.3s ease;
+            margin-bottom: 20px;
         }
         .profile-card:hover {
             transform: translateY(-5px);
@@ -51,56 +46,21 @@
             height: 10px;
             border-radius: 5px;
         }
-
-        /* Nazar Boncuğu CSS Yapısı */
         .orta-boncuk {
-            width: 150px;
-            height: 150px;
-            background-color: #002f6c;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .acik-mavi-h {
-            width: 100px;
-            height: 100px;
-            background-color: #8db600; /* Temana göre renk değiştirebilirsin */
-            background-color: #63b8ff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .beyaz-h {
-            width: 60px;
-            height: 60px;
-            background-color: #ffffff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .siyah-h {
-            width: 30px;
-            height: 30px;
-            background-color: #000000;
-            border-radius: 50%;
+            font-size: 5rem;
+            animation: navbarDon 5s infinite linear;
         }
     </style>
 </head>
-<body>
+<body class="bg-light">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-5">
+            <div class="container">
                 <a class="navbar-brand fw-bold" href="index.html">MyBestWeb10 <span class="nazar-boncugu">🧿</span></a>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" href="index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="index.html">Privacy</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-primary fw-bold" href="hakkimda.html">Hakkimda</a>
@@ -111,18 +71,17 @@
         </nav>
     </header>
 
-    <div class="container mt-4">
+    <div class="container">
         <main role="main" class="pb-5">
-            
             <div class="text-center mb-5">
                 <h1 class="display-5 fw-bold text-dark">Su'nun Yeni Dünyası</h1>
-                <p class="text-muted">Geleceğin en başarılı .NET geliştiricisi adım adım yükseliyor. 😉</p>
+                <p class="lead text-muted">Geleceğin en başarılı .NET geliştiricisi adım adım yükseliyor. 😉</p>
             </div>
 
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card profile-card p-4 text-center h-100">
-                        <div class="mb-3" style="font-size: 4.5rem;">💻</div>
+                        <div class="mb-3" style="font-size: 4rem;">💻</div>
                         <h3 class="fw-bold mb-1">Hakkımda</h3>
                         <p class="text-muted small">Software Developer & DevOps Enthusiast</p>
                         <hr>
@@ -172,7 +131,7 @@
                         <div class="pt-2">
                             <span class="tech-badge">C#</span>
                             <span class="tech-badge">.NET 10</span>
-                            <span class="tech-badge">ASP.NET MVC</span>
+                            <span class="tech-badge">ASP.NET Core</span>
                             <span class="tech-badge">Azure Pipelines</span>
                             <span class="tech-badge">GitHub Pages</span>
                             <span class="tech-badge">Bootstrap 5</span>
@@ -183,23 +142,14 @@
             </div>
 
             <div class="text-center mt-5 pt-4">
-                <div class="orta-boncuk mx-auto">
-                    <div class="acik-mavi-h">
-                        <div class="beyaz-h">
-                            <div class="siyah-h"></div>
-                        </div>
-                    </div>
-                </div>
-                <p class="fs-5 mt-3 fw-bold text-dark">Maşallah! 🧿</p>
+                <div class="orta-boncuk">🧿</div>
+                <p class="fs-5 mt-3 fw-bold text-dark">Maşallah!</p>
             </div>
-
         </main>
     </div>
 
-    <footer class="border-top footer text-muted text-center py-3">
-        <div class="container">
-            &copy; 2026 - MyBestWeb10 - <a href="index.html">Privacy</a>
-        </div>
+    <footer class="border-top footer text-muted text-center py-3 mt-5">
+        <div class="container">&copy; 2026 - MyBestWeb10</div>
     </footer>
 </body>
 </html>
