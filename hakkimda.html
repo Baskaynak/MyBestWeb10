@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hakkimda - MyBestWeb10</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <style>
+        .nazar-boncugu {
+            display: inline-block !important;
+            font-size: 1.5rem;
+            margin-left: 8px;
+            animation: navbarDon 3s infinite linear !important;
+            vertical-align: middle;
+        }
+        @keyframes navbarDon {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .profile-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+        .tech-badge {
+            background-color: #e9ecef;
+            color: #495057;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        .tech-badge:hover {
+            background-color: #0d6efd;
+            color: white;
+        }
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+        }
+        .orta-boncuk {
+            font-size: 5rem;
+            animation: navbarDon 5s infinite linear;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-5">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="index.html">MyBestWeb10 <span class="nazar-boncugu">🧿</span></a>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary fw-bold" href="hakkimda.html">Hakkimda</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-5">
+            <div class="text-center mb-5">
+                <h1 class="display-5 fw-bold text-dark">Sunun Yeni Dunyasi</h1>
+                <p class="lead text-muted">Gelecegin en basarili .NET gelistiricisi adim adim yukseliyor. 😉</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card profile-card p-4 text-center h-100">
+                        <div class="mb-3" style="font-size: 4rem;">💻</div>
+                        <h3 class="fw-bold mb-1">Hakkimda</h3>
+                        <p class="text-muted small">Software Developer and DevOps Enthusiast</p>
+                        <hr />
+                        <p class="text-start text-secondary small" style="line-height: 1.6;">
+                            Yenilikci teknolojiler, bulut altyapilari ve modern web mimarileri uzerine calisan, projelerine otomatik CI/CD pipeline surecleri entegre eden bir muhendis adayi.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card profile-card p-4 mb-4">
+                        <h4 class="fw-bold mb-4 text-dark">🚀 Teknik Yetkinlikler</h4>
+                        
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="fw-medium">.NET Ecosystem (C# / ASP.NET Core)</span>
+                                <span class="text-muted fw-bold text-primary">90%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-primary" style="width: 90%"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="fw-medium">CI/CD Pipelines and DevOps (Azure DevOps)</span>
+                                <span class="text-muted fw-bold text-success">85%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="fw-medium">Web Gelistirme (HTML5 / CSS3 / Bootstrap)</span>
+                                <span class="text-muted fw-bold text-info">80%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card profile-card p-4">
+                        <h4 class="fw-bold mb-3 text-dark">🛠️ Araclar and Teknolojiler</h4>
+                        <div class="pt-2">
+                            <span class="tech-badge">C#</span>
+                            <span class="tech-badge">.NET 10</span>
+                            <span class="tech-badge">ASP.NET Core</span>
+                            <span class="tech-badge">Azure Pipelines</span>
+                            <span class="tech-badge">GitHub Pages</span>
+                            <span class="tech-badge">Bootstrap 5</span>
+                            <span class="tech-badge">Git and GitHub</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5 pt-4">
+                <div class="orta-boncuk">🧿</div>
+                <p class="fs-5 mt-3 fw-bold text-dark">Masallah!</p>
+                <div class="mt-4">
+    <p class="text-muted small mb-1">Altyapi Durumu / CI-CD Status:</p>
+    <img src="https://dev.azure.com/subaskaynak07/MyBestWeb10-DevOps/_apis/build/status/Baskaynak.MyBestWeb10?branchName=main" alt="Azure DevOps Build Status">
+    <div class="mt-4 p-3 bg-light rounded text-start mx-auto" style="max-width: 500px; border-left: 4px solid #0078d4;">
+            <h6 class="fw-bold text-secondary mb-2">🤖 Canlı Otomasyon Raporu:</h6>
+            <div id="devops-report">
+                <span class="text-muted small">Rapor yükleniyor... ⚡</span>
+            </div>
+        </div>
+                 </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted text-center py-3 mt-5">
+        <div class="container">&copy; 2026 - MyBestWeb10</div>
+    </footer>
+</body>
+<script>
+    // GitHub API'sinden en son commit yorumunu canli cekme fonksiyonu
+    async function fetchDevOpsReport() {
+        const repo = "Baskaynak/MyBestWeb10";
+        try {
+            // 1. En son commit'lerin listesini al
+            const commitRes = await fetch(`https://api.github.com/repos/${repo}/commits?per_page=1`);
+            const commits = await commitRes.json();
+            if (!commits || commits.length === 0) return;
+            
+            const lastCommitSha = commits[0].sha;
+            
+            // 2. O commit'e robotun biraktigi yorumlari cek
+            const commentRes = await fetch(`https://api.github.com/repos/${repo}/commits/${lastCommitSha}/comments`);
+            const comments = await commentRes.json();
+            
+            const reportDiv = document.getElementById('devops-report');
+            
+            // 3. Bizim SuWeb botunun yorumunu ayikla ve ekrana bas
+            const botComment = comments.find(c => c.body.includes("SuWeb DevOps Agent"));
+            
+            if (botComment) {
+                // Markdown'dan gelen yıldızları ve emojileri temiz ve tatli bir HTML'e donustur
+                let cleanBody = botComment.body
+                    .replace(/### 🤖 SuWeb DevOps Agent Automation Report/g, '')
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\* /g, '🔹 ');
+                
+                reportDiv.innerHTML = `<p class="mb-0 text-dark small" style="white-space: pre-line;">${cleanBody}</p>`;
+            } else {
+                reportDiv.innerHTML = `<span class="text-muted small">Şu anki versiyon derleme aşamasında... ⏳</span>`;
+            }
+        } catch (error) {
+            console.error("Rapor cekilemedi:", error);
+            document.getElementById('devops-report').innerHTML = `<span class="text-danger small">Rapor baglantisi kurulamadi. 🔌</span>`;
+        }
+    }
+
+    // Sayfa yuklendiginde robotu calistir
+    document.addEventListener("DOMContentLoaded", fetchDevOpsReport);
+</script>
+</html>

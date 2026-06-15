@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page - MyBestWeb10</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <style>
+        .nazar-boncugu {
+            display: inline-block !important;
+            font-size: 1.5rem;
+            margin-left: 8px;
+            animation: navbarDon 3s infinite linear !important;
+            vertical-align: middle;
+        }
+        @keyframes navbarDon {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hover-translate {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-translate:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 1rem 3rem rgba(0,0,0,.125)!important;
+        }
+        .bg-light-primary { background-color: #e3f2fd; }
+        .bg-light-success { background-color: #e8f5e9; }
+        .bg-light-warning { background-color: #fff3e0; }
+        .text-gradient {
+            background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">MyBestWeb10 <span class="nazar-boncugu">🧿</span></a>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="hakkimda.html">Hakkimda</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            
+            <div class="text-center my-5">
+                <h1 class="display-4 fw-bold text-gradient">SuWeb Dünyasına Hoş Geldiniz!</h1>
+                <p class="lead text-muted">.NET Ekosistemi, DevOps Pipeline'ları ve Güçlü Altyapı Çözümleri</p>
+                <div class="spinner-grow text-primary shadow-sm" role="status" style="width: 1rem; height: 1rem;"></div>
+            </div>
+
+            <div class="container my-5">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold position-relative d-inline-block pb-2 border-bottom border-primary border-3">
+                        🧠 Neler Yapiyorum?
+                    </h2>
+                    <p class="text-muted mt-2">Geliştirdiğim, yönettiğim ve tutkuyla kullandığım technologies</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm hover-translate">
+                            <div class="card-body p-4 text-center">
+                                <div class="bg-light-primary text-primary rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <span style="font-size: 1.8rem;">⚙️</span>
+                                </div>
+                                <h4 class="card-title fw-bold mb-3">Backend Development</h4>
+                                <p class="card-text text-muted small">Performanslı, ölçeklenebilir ve güvenli kurumsal mimariler inşa ediyorum.</p>
+                                <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                                    <span class="badge bg-dark text-white fw-semibold">.NET 10</span>
+                                    <span class="badge bg-primary text-white fw-semibold">C#</span>
+                                    <span class="badge bg-info text-dark fw-semibold">ASP.NET Core</span>
+                                    <span class="badge bg-secondary text-white fw-semibold">Web API</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm hover-translate">
+                            <div class="card-body p-4 text-center">
+                                <div class="bg-light-success text-success rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <span style="font-size: 1.8rem;">🚀</span>
+                                </div>
+                                <h4 class="card-title fw-bold mb-3">DevOps & Cloud</h4>
+                                <p class="card-text text-muted small">Kodun üretime yolculuğunu otomatikleştiriyor ve bulut süreçlerini yönetiyorum.</p>
+                                <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                                    <span class="badge bg-info text-dark fw-semibold">Azure DevOps</span>
+                                    <span class="badge bg-dark text-white fw-semibold">GitHub Actions</span>
+                                    <span class="badge bg-primary text-white fw-semibold">CI/CD Pipelines</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm hover-translate">
+                            <div class="card-body p-4 text-center">
+                                <div class="bg-light-warning text-warning rounded-circle mb-3 mx-auto d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                    <span style="font-size: 1.8rem;">📊</span>
+                                </div>
+                                <h4 class="card-title fw-bold mb-3">SysAdmin & Monitoring</h4>
+                                <p class="card-text text-muted small">Sistemleri canlı izliyor, metrikleri topluyor ve Linux sunucu yönetimini üstleniyorum.</p>
+                                <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                                    <span class="badge bg-warning text-dark fw-semibold">Linux (Ubuntu)</span>
+                                    <span class="badge bg-danger text-white fw-semibold">Grafana</span>
+                                    <span class="badge bg-dark text-white fw-semibold">Git</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted text-center py-3">
+        <div class="container">
+            &copy; 2026 - MyBestWeb10
+        </div>
+    </footer>
+</body>
+</html>
