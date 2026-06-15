@@ -1,8 +1,8 @@
-# Starter pipeline zenginleştirilmiş v6.0 (Azure DevOps CI + GitHub Pages CD)
+# Starter pipeline zenginlestirilmis v6.0 (Azure DevOps CI + GitHub Pages CD)
 trigger:
 - main
 
-# Her build'a tarih ve numara bazlı kurumsal versiyon adı verir
+# Her build'a tarih ve numara bazli kurumsal versiyon adi verir
 name: $(Date:yyyyMMdd).$(Rev:r)
 
 pool:
@@ -16,16 +16,16 @@ variables:
 
 steps:
 
-# [ANALİZ BAŞLANGICI] Sistem Kaynaklarını İzlemeyi Başlat
+# [ANALIZ BASLANGICI] Sistem Kaynaklarini Izlemeyi Baslat
 - script: |
     echo "=== PERFORMANS ANALIZI BASLADI ==="
     echo "##vso[task.logissue type=warning;]Sistem kaynak izlemesi aktif! 📊"
     df -h
     free -m
     lscpu | grep "Model name"
-  displayName: '⚡ [Analiz] Sistem İlk Durum Kontrolü'
+  displayName: '⚡ [Analiz] Sistem Ilk Durum Kontrolu'
 
-# 1. Adım: .NET 10 Ortamını Hazırlama
+# 1. Adim: .NET 10 Ortamini Hazirlama
 - task: UseDotNet@2
   displayName: 'Install .NET 10 SDK (Preview)'
   inputs:
@@ -33,20 +33,20 @@ steps:
     version: '10.x'
     includePreviewVersions: true
 
-# 2. Adım: Paketleri Çekme (Restore)
+# 2. Adim: Paketleri Cekme (Restore)
 - task: DotNetCoreCLI@2
   displayName: 'Restore Dependencies'
   inputs:
     command: 'restore'
     projects: '$(projectPath)'
 
-# 3. Adım: KATI KALİTE KAPISI (Check Code Formatting)
+# 3. Adim: KATI KALITE KAPISI (Check Code Formatting)
 - script: |
     echo "Kod format kalitesi denetleniyor..."
     dotnet format --verify-no-changes
-  displayName: '🛡️ [Kalite Kapısı] Kod Standartları Kontrolü'
+  displayName: '🛡️ [Kalite Kapisi] Kod Standartlari Kontrolu'
 
-# 4. Adım: Kodun Derlenmesi (Build) + Zaman Ölçümü
+# 4. Adim: Kodun Derlenmesi (Build) + Zaman Olcumu
 - script: |
     echo "Build basliyor, kronometre acildi..."
     START_TIME=$(date +%s)
@@ -59,7 +59,7 @@ steps:
     echo "##vso[task.setvariable variable=BuildDuration]$ELAPSED"
   displayName: 'Build Project & Measure Time'
 
-# 5. Adım: Yayına Hazırlama (Publish)
+# 5. Adim: Yayina Hazirlama (Publish)
 - task: DotNetCoreCLI@2
   displayName: 'Publish Artifacts'
   inputs:
@@ -69,7 +69,7 @@ steps:
     arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/out'
     zipAfterPublish: false
 
-# 6. Adım: Zip Paketi Oluşturma (DevOps saklaması için)
+# 6. Adim: Zip Paketi Olusturma (DevOps saklamasi icin)
 - task: ArchiveFiles@2
   displayName: 'Zip Application Code'
   inputs:
@@ -79,7 +79,7 @@ steps:
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
 
-# 7. Adım: Çıktıyı DevOps Panelinde Saklama
+# 7. Adim: Ciktiyi DevOps Panelinde Saklama
 - task: PublishBuildArtifacts@1
   displayName: 'Upload Zip to Azure DevOps Storage'
   inputs:
@@ -87,7 +87,7 @@ steps:
     ArtifactName: '$(artifactName)'
     publishLocation: 'Container'
 
-# [ANALİZ BİTİŞİ] Zenginleştirilmiş Rapor Adımı (KORUNDU)
+# [ANALIZ BITISI] Zenginlestirilmis Rapor Adimi (KORUNDU)
 - script: |
     echo "=== PERFORMANS ANALIZI FINISH ==="
     USED_RAM=$(free -m | awk '/Mem:/ {print $3}')
@@ -99,46 +99,47 @@ steps:
     echo "| :--- | :--- |" >> $(Build.ArtifactStagingDirectory)/performance.md
     echo "| ⏱️ **Toplam Build Suresi** | $(BuildDuration) saniye |" >> $(Build.ArtifactStagingDirectory)/performance.md
     echo "| 🧠 **Harcanan Max Bellek** | $USED_RAM MB / $TOTAL_RAM MB |" >> $(Build.ArtifactStagingDirectory)/performance.md
-    echo "| 🛡️ **Kalite Kapısı Durumu** | Gecildi 🟢 |" >> $(Build.ArtifactStagingDirectory)/performance.md
+    echo "| 🛡️ **Kalite Kapisi Durumu** | Gecildi 🟢 |" >> $(Build.ArtifactStagingDirectory)/performance.md
     
     cat $(Build.ArtifactStagingDirectory)/performance.md
     echo "##vso[task.uploadsummary]$(Build.ArtifactStagingDirectory)/performance.md"
-  displayName: '📊 [Analiz] Performans Raporunu Panele Yazdır'
+  displayName: '📊 [Analiz] Performans Raporunu Panele Yazdir'
 
-# 🚀 9. Adım: KESİN VE GARANTİLİ CD ADIMI (Klasör Karmaşası Tamamen Çözüldü)
+# 🚀 9. Adim: CD Adimi (Klasor yollari nokta atisi duzeltildi)
 - script: |
-    echo "=== DAĞITIM ENTEGRASYONU BAŞLADI ==="
+    echo "=== DAGITIM ENTEGRASYONU BASLADI ==="
     
-    # 1. Tamamen bağımsız ve tertemiz bir geçici klasör oluştur
+    # 1. Temiz bir gecici klasor olustur
     mkdir -p $(Build.ArtifactStagingDirectory)/clean_pages
     
-    # 2. Sadece ve sadece tarayıcının görmesini istediğimiz ana HTML dosyalarını buraya kopyala
-    cp $(Build.SourcesDirectory)/index.html $(Build.ArtifactStagingDirectory)/clean_pages/
-    cp $(Build.SourcesDirectory)/hakkimda.html $(Build.ArtifactStagingDirectory)/clean_pages/
+    # 2. Dosyalari ALT KLASORDEN (MyBestWeb10/) dogru yolla kopyala!
+    cp $(Build.SourcesDirectory)/MyBestWeb10/index.html $(Build.ArtifactStagingDirectory)/clean_pages/
+    cp $(Build.SourcesDirectory)/MyBestWeb10/hakkimda.html $(Build.ArtifactStagingDirectory)/clean_pages/
     
-    # 3. Eğer projede css/js klasörleri varsa onları da bu temiz klasörün içine taşı
+    # 3. wwwroot varliklarini kopyala
     if [ -d "$(Build.SourcesDirectory)/MyBestWeb10/wwwroot" ]; then
       cp -r $(Build.SourcesDirectory)/MyBestWeb10/wwwroot/* $(Build.ArtifactStagingDirectory)/clean_pages/ 2>/dev/null || true
     fi
     
-    # 4. Temiz klasörün içine giriş yap
+    # 4. Temiz klasorun icine giris yap
     cd $(Build.ArtifactStagingDirectory)/clean_pages
     
-    echo "=== GİDECEK DOSYALARIN NET LİSTESİ ==="
+    echo "=== GIDECEK DOSYALARIN NET LISTESI ==="
     ls -la
     
-    # Git konfigürasyonları ve zorlu push
+    # Git konfigurasyonlari ve zorlu push
     git config --global user.email "devops-agent@azure.com"
     git config --global user.name "Azure DevOps Agent"
     
     git init
     git checkout -b main
     git add .
-    git commit -m "Deploy from Azure DevOps Pipeline v6.5 [Skip CI]"
+    git commit -m "Deploy from Azure DevOps Pipeline v6.6 [Skip CI]"
     
-    # GitHub gh-pages branch'ini tamamen sıfırlayıp sadece bu temiz dosyaları basıyoruz
+    # GitHub gh-pages branch'ine tam yetkiyle bas
     git push --force "https://$(GitHubToken)@github.com/$(githubRepo).git" main:gh-pages
-  displayName: '🚀 [CD] Üretilen Dosyaları GitHub Pages (gh-pages) Branchine Dağıt'
-# 10. Adım: Nazar Kalkanı Logumuz (KORUNDU)
-- script: echo 'SuWeb v6.0 Hibrit CI/CD Pipeline Başarıyla Tamamlandı! 🧿🚀'
+  displayName: '🚀 [CD] Uretilen Dosyalari GitHub Pages (gh-pages) Branchine Dagit'
+
+# 10. Adim: Nazar Kalkani Logumuz (KORUNDU)
+- script: echo 'SuWeb v6.0 Hibrit CI/CD Pipeline Basariyla Tamamlandi! 🧿🚀'
   displayName: 'Nazar Koruma Logu v6.0'
