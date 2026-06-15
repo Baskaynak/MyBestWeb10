@@ -148,3 +148,17 @@ steps:
 # 10. Adim: Nazar Kalkani Logumuz (KORUNDU)
 - script: echo 'SuWeb v6.0 Hibrit CI/CD Pipeline Basariyla Tamamlandi! 🧿🚀'
   displayName: 'Nazar Koruma Logu v6.0'
+  # 💬 11. Adim: GitHub Commit Automation - Otomatik Durum Onay Botu
+- script: |
+    echo "=== GITHUB COMMIT ONAYI BASLIYOR ==="
+    
+    # GitHub API'sine gidip en son commit'in altina otomatik yorum yaziyoruz
+    curl -X POST \
+         -H "Authorization: token $(GitHubToken)" \
+         -H "Accept: application/vnd.github.v3+json" \
+         https://api.github.com/repos/$(githubRepo)/commits/$(Build.SourceVersion)/comments \
+         -d '{
+               "body": "### 🤖 SuWeb DevOps Agent Automation Report\n\n🚀 **CI/CD Pipeline Başarıyla Tamamlandı!**\n\n* **Build No:** '$(Build.BuildNumber)'\n* **Kalite Kapısı (QA Gate):** Geçildi 🟢\n* **Durum:** Canlıda Aktif! 🧿\n\n_Bu yorum Azure DevOps Pipeline tarafından otomatik olarak bırakılmıştır._"
+             }'
+  displayName: '💬 [Automation] Post Deployment Comment to GitHub Commit'
+  condition: succeeded() # Sadece pipeline basariyla biterse bu yorumu yazar!
