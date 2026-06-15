@@ -93,17 +93,22 @@ steps:
     USED_RAM=$(free -m | awk '/Mem:/ {print $3}')
     TOTAL_RAM=$(free -m | awk '/Mem:/ {print $2}')
     
-    echo "### 📊 SuWeb Pipeline v6.0 Kalite ve Performans Raporu" > $(Build.ArtifactStagingDirectory)/performance.md
-    echo "---" >> $(Build.ArtifactStagingDirectory)/performance.md
-    echo "| Metrik | Durum / Deger |" >> $(Build.ArtifactStagingDirectory)/performance.md
-    echo "| :--- | :--- |" >> $(Build.ArtifactStagingDirectory)/performance.md
-    echo "| ⏱️ **Toplam Build Suresi** | $(BuildDuration) saniye |" >> $(Build.ArtifactStagingDirectory)/performance.md
-    echo "| 🧠 **Harcanan Max Bellek** | $USED_RAM MB / $TOTAL_RAM MB |" >> $(Build.ArtifactStagingDirectory)/performance.md
-    echo "| 🛡️ **Kalite Kapisi Durumu** | Gecildi 🟢 |" >> $(Build.ArtifactStagingDirectory)/performance.md
+    # Raporu hem ana ozet hem de Extensions sekmesi icin hazirla
+    mkdir -p $(Build.ArtifactStagingDirectory)/summary
     
-    cat $(Build.ArtifactStagingDirectory)/performance.md
-    echo "##vso[task.uploadsummary]$(Build.ArtifactStagingDirectory)/performance.md"
-  displayName: '📊 [Analiz] Performans Raporunu Panele Yazdir'
+    echo "### 📊 SuWeb Pipeline v6.0 Kalite ve Performans Raporu" > $(Build.ArtifactStagingDirectory)/summary/SuWeb-Metrics.md
+    echo "---" >> $(Build.ArtifactStagingDirectory)/summary/SuWeb-Metrics.md
+    echo "| Metrik | Durum / Deger |" >> $(Build.ArtifactStagingDirectory)/summary/SuWeb-Metrics.md
+    echo "| :--- | :--- |" >> $(Build.ArtifactStagingDirectory)/summary/SuWeb-Metrics.md
+    echo "| ⏱️ **Toplam Build Suresi** | $(BuildDuration) saniye |" >> $(Build.ArtifactStagingDirectory)/summary/SuWeb-Metrics.md
+    echo "| 🧠 **Harcanan Max Bellek** | $USED_RAM MB / $TOTAL_RAM MB |" >> $(Build.ArtifactStagingDirectory)/summary/SuWeb-Metrics.md
+    echo "| 🛡️ **Kalite Kapisi Durumu** | Gecildi 🟢 |" >> $(Build.ArtifactStagingDirectory)/summary/SuWeb-Metrics.md
+    
+    cat $(Build.ArtifactStagingDirectory)/summary/SuWeb-Metrics.md
+    
+    # Hem ekrana bas hem de sisteme upload et
+    echo "##vso[task.uploadsummary]$(Build.ArtifactStagingDirectory)/summary/SuWeb-Metrics.md"
+  displayName: 'QA - Publish Performance Report'
 
 # 🚀 9. Adim: CD Adimi (Klasor yollari nokta atisi duzeltildi)
 - script: |
