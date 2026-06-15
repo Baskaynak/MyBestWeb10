@@ -44,7 +44,7 @@ steps:
 - script: |
     echo "Kod format kalitesi denetleniyor..."
     dotnet format --verify-no-changes
-  displayName: '🛡️ [Kalite Kapisi] Kod Standartlari Kontrolu'
+  displayName: '🛡️ [QA Gate] Kod Standartlari Kontrolu'
 
 # 4. Adim: Kodun Derlenmesi (Build) + Zaman Olcumu
 - script: |
