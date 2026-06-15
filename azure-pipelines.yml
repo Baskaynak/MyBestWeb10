@@ -7,10 +7,6 @@ name: $(Date:yyyyMMdd).$(Rev:r)
 
 pool:
   vmImage: 'ubuntu-latest'
-# 🛡️ SECURITY HARDENING: En Dusuk Yetki Prensibi (Least Privilege)
-permissions:
-  contents: write    # Sadece GitHub Pages'e kod basabilmesi icin yazma yetkisi
-  packages: read     # Paketleri guvenle okuyabilmesi icin okuma yetkisi
 
 variables:
   buildConfiguration: 'Release'
